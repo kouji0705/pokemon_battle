@@ -8,26 +8,24 @@ func main() {
 
 	// ポケモンの作成
 	pikachu := &core.Pokemon{
-		Name:    "ピカチュウ", // 日本語の名前
+		Name:    "ピカチュウ",
 		HP:      100,
 		Attack:  55,
 		Defense: 40,
 		Speed:   90,
-		// 技の名前も日本語
 		Moves: []core.Move{
-			*core.NewMove("10まんボルト", 90, 95, "でんき"), // 「Thunderbolt」を日本語化
+			*core.NewMove("10まんボルト", 90, 95, "でんき"),
 		},
 	}
 
 	charmander := &core.Pokemon{
-		Name:    "ヒトカゲ", // 日本語の名前
+		Name:    "ヒトカゲ",
 		HP:      100,
 		Attack:  52,
 		Defense: 43,
 		Speed:   65,
-		// 技の名前も日本語
 		Moves: []core.Move{
-			*core.NewMove("かえんほうしゃ", 90, 95, "ほのお"), // 「Flamethrower」を日本語化
+			*core.NewMove("かえんほうしゃ", 90, 95, "ほのお"),
 		},
 	}
 
