@@ -6,38 +6,48 @@ import (
 )
 
 type Move struct {
-	Name     string
-	Power    int    // 技の威力
-	Accuracy int    // 命中率（0-100%）
-	Type     string // 技の属性（例: 電気、炎など）
-
-	randSource *rand.Rand // 乱数生成器を保持
+	Name             string
+	Power            int            // 技の威力
+	Accuracy         int            // 命中率（0-100%）
+	Type             string         // 技の属性（例: 電気、炎など）
+	randSource       *rand.Rand     // 乱数生成器を保持
+	randomFactorFunc func() float64 // ランダムなダメージ倍率を計算する関数
+	hitCheckFunc     func() bool    // 命中判定の関数
 }
 
 // NewMove creates a new move and initializes the random source.
 func NewMove(name string, power, accuracy int, moveType string) *Move {
-	return &Move{
+	randSource := rand.New(rand.NewSource(time.Now().UnixNano()))
+	move := &Move{
 		Name:       name,
 		Power:      power,
 		Accuracy:   accuracy,
 		Type:       moveType,
-		randSource: rand.New(rand.NewSource(time.Now().UnixNano())), // 新しい乱数生成器を初期化
+		randSource: randSource,
+		randomFactorFunc: func() float64 {
+			// デフォルトのダメージ倍率：0.85～1.0
+			return 0.85 + randSource.Float64()*(1.0-0.85)
+		},
+		hitCheckFunc: func() bool {
+			// デフォルトの命中判定：Accuracyに基づくランダムな命中判定
+			return randSource.Intn(100) < accuracy
+		},
 	}
+	return move
 }
 
 // CanHit checks if the move hits based on its accuracy.
 func (m *Move) CanHit() bool {
-	// move に保持している乱数生成器を使って乱数を生成
-	return m.randSource.Intn(100) < m.Accuracy
+	return m.hitCheckFunc() // 注入された命中判定関数を使用
 }
 
-// / 技（Move）のダメージを計算する
+// CalculateDamage calculates the damage of the move.
 func (m *Move) CalculateDamage(attacker *Pokemon, defender *Pokemon) int {
 	// ダメージ計算式
 	damage := (attacker.Attack * m.Power) / defender.Defense
 
-	// ダメージにランダム要素を追加（0.85倍～1.0倍）
-	randomFactor := 0.85 + rand.Float64()*(1.0-0.85)
+	// ランダム要素を使用してダメージを計算
+	randomFactor := m.randomFactorFunc() // 注入された関数を使用
 	damage = int(float64(damage) * randomFactor)
 
 	if damage < 0 {
