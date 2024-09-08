@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/username/pokemon-battle/internal/core"
+	"github.com/kouji0705/pokemon-battle/internal/core"
 )
 
 func main() {
