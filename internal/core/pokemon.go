@@ -1,6 +1,5 @@
 package core
 
-// Pokemon represents a Pokemon with basic stats.
 type Pokemon struct {
 	Name    string
 	HP      int
@@ -10,7 +9,7 @@ type Pokemon struct {
 	Moves   []Move // 使用可能な技のリスト
 }
 
-// AttackPokemon applies a selected move from this Pokemon to the target Pokemon.
+// ポケモンが技を使用し、相手にダメージを与える
 func (p *Pokemon) AttackPokemon(target *Pokemon, move Move) (damage int, err error) {
 	if !move.CanHit() {
 		return 0, nil // 技が外れた場合
@@ -25,7 +24,7 @@ func (p *Pokemon) AttackPokemon(target *Pokemon, move Move) (damage int, err err
 	return damage, nil
 }
 
-// IsFainted checks if the Pokemon has fainted (HP <= 0).
+// ポケモンが戦闘不能かどうかを判定
 func (p *Pokemon) IsFainted() bool {
 	return p.HP <= 0
 }

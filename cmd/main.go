@@ -5,6 +5,7 @@ import (
 )
 
 func main() {
+
 	// ポケモンの作成
 	pikachu := &core.Pokemon{
 		Name:    "Pikachu",
@@ -13,7 +14,7 @@ func main() {
 		Defense: 40,
 		Speed:   90,
 		Moves: []core.Move{
-			{Name: "Thunderbolt", Power: 90, Accuracy: 95, Type: "Electric"},
+			*core.NewMove("Thunderbolt", 90, 95, "Electric"),
 		},
 	}
 
@@ -24,7 +25,7 @@ func main() {
 		Defense: 43,
 		Speed:   65,
 		Moves: []core.Move{
-			{Name: "Flamethrower", Power: 90, Accuracy: 95, Type: "Fire"},
+			*core.NewMove("Flamethrower", 90, 95, "Fire"),
 		},
 	}
 
