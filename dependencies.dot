@@ -1,0 +1,10 @@
+digraph godep {
+splines=ortho
+nodesep=0.4
+ranksep=0.8
+node [shape="box",style="rounded,filled"]
+edge [arrowsize="0.5"]
+"cmd/main.go" [label="cmd/main.go" color="paleturquoise" URL="https://godoc.org/cmd/main.go" target="_blank"];
+"cmd/main.go" -> "github.com/kouji0705/pokemon-battle/internal/core";
+"github.com/kouji0705/pokemon-battle/internal/core" [label="github.com/kouji0705/pokemon-battle/internal/core" color="paleturquoise" URL="https://godoc.org/github.com/kouji0705/pokemon-battle/internal/core" target="_blank"];
+}
